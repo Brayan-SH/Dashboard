@@ -21,7 +21,7 @@ from dotenv import load_dotenv
 # Cargar variables de entorno
 load_dotenv()
 
-# 
+# Crear instancia de Flask
 app = Flask(__name__, static_folder='.')
 
 """ 
@@ -39,7 +39,7 @@ CORS(app, resources={
     }    
 })
 
-""" ◘ config : Clase personalizada para manejar la configuración de la conexión a la base de datos y limpieza de texto. """
+""" • config : Clase personalizada para manejar la configuración de la conexión a la base de datos y limpieza de texto. """
 class Config:
     SERVER = os.getenv('DB_SERVER', 'localhost')
     PORT = int(os.getenv('DB_PORT', '3306'))
@@ -65,9 +65,8 @@ class Config:
 """ → get_db_connection : Función para establecer conexión con la base de datos MySQL. """
 def get_db_connection():
     try:
-        db_config = Config.get_db_config()
-        print(f"Intentando conectar a: {db_config['database']} en {db_config['host']}:{db_config['port']} con usuario {db_config['user']}")
-        conn = mysql.connector.connect(**db_config)
+        print(f"Intentando conectar a: {Config.DATABASE} en {Config.SERVER}:{Config.PORT} con usuario {Config.USERNAME}")
+        conn = mysql.connector.connect(**Config.get_db_config())
         print("✓ Conexión exitosa a la base de datos")
         return conn
     except mysql.connector.Error as e:
