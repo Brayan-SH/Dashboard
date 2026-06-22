@@ -1,0 +1,158 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-card h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.form-label {
+  display: block;
+  margin-top: 8px;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
+.remember-password {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.remember-password input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.remember-password label {
+  cursor: pointer;
+  user-select: none;
+  color: #666;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  background: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-login:hover {
+  background: #357ae8;
+}
+
+.divider {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-crear-cuenta {
+  width: 100%;
+  padding: 15px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-crear-cuenta:hover {
+  background: #c82333;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-social {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-google {
+  background: #ffffff;
+  color: #333;
+  border: 1px solid #dadce0;
+}
+
+.btn-google:hover {
+  background: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.btn-facebook:hover {
+  background: #166fe5;
+  box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
+}
+
+.btn-social i {
+  font-size: 18px;
+}

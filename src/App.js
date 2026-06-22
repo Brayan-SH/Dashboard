@@ -1,13 +1,19 @@
-import './App.css';
+import "./App.css";
+import Login from './components/Login';
+import NuevaCuenta from './components/NuevaCuenta';
+import React, { useState } from 'react';
 
 function App() {
-  let nombre = "Dashboard";
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-          Inicio {nombre}: Inventario, Ventas, Clientes.
-      </header>
-    </div>
+    <React.StrictMode>
+      {mostrarFormulario ? (
+        <NuevaCuenta onVolver={() => setMostrarFormulario(false)} />
+      ) : (
+        <Login onCrearCuenta={() => setMostrarFormulario(true)} />
+      )}
+    </React.StrictMode>
   );
 }
 

@@ -39,7 +39,8 @@ CORS(app, resources={
     }    
 })
 
-""" • config : Clase personalizada para manejar la configuración de la conexión a la base de datos y limpieza de texto. """
+""" • CONFIG: Clase personalizada para manejar la configuración de la conexión a la base de datos y limpieza de texto.
+"""
 class Config:
     SERVER = os.getenv('DB_SERVER', 'localhost')
     PORT = int(os.getenv('DB_PORT', '3306'))
@@ -62,12 +63,12 @@ class Config:
     def clean_text(text):
         return text.strip() if isinstance(text, str) else text
 
-""" → get_db_connection : Función para establecer conexión con la base de datos MySQL. """
+
+""" FUNCION PARA ESTABLECER LA CONEXIÓN CON LA BASE DE DATOS MySQL. """
 def get_db_connection():
     try:
-        print(f"Intentando conectar a: {Config.DATABASE} en {Config.SERVER}:{Config.PORT} con usuario {Config.USERNAME}")
         conn = mysql.connector.connect(**Config.get_db_config())
-        print("✓ Conexión exitosa a la base de datos")
+        print(f"✓ Conexión exitosa a la base de datos MySQL")
         return conn
     except mysql.connector.Error as e:
         print(f"✗ Error de conexión a la base de datos MySQL:")
@@ -77,4 +78,55 @@ def get_db_connection():
         print(f"✗ Error inesperado: {str(e)}")
         return None
 
-get_db_connection()
+
+# ==================== ENDPOINTS ====================
+
+# ==================== ROLES ====================
+@app.route('/api/roles', methods=['GET'])
+def obtener_roles():
+    try:
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+        
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM roles ORDER BY rol") # Obtener por ORDER BY rol para asegurar que los roles se devuelvan en orden alfabético
+        roles_data = cursor.fetchall()
+        
+        # Convertir a formato JSON
+        # Si la tabla solo tiene una columna (el nombre del rol), usarla como id y nombre
+        # Si tiene dos columnas, la primera es id y la segunda es nombre
+        roles = []
+        for i, row in enumerate(roles_data):
+            if len(row) == 1:
+                # Solo una columna
+                roles.append({
+                    'id': i + 1,
+                    'nombre': row[0]
+                })
+            else:
+                # Dos o más columnas
+                roles.append({
+                    'id': row[0],
+                    'nombre': row[1]
+                })
+        
+        cursor.close()
+        conn.close()
+        
+        print(f"✅ Roles cargados correctamente: {roles}")
+        return jsonify(roles), 200
+    
+    except Exception as e:
+        error_msg = f"Error al obtener roles: {str(e)}"
+        print(error_msg)
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': 'Error al obtener roles', 'detalle': str(e)}), 500
+
+
+if __name__ == '__main__':
+    print("\n" + "="*50)
+    print("🚀 Servidor Flask iniciado")
+    print("="*50 + "\n")
+    app.run(debug=True, port=5000)
