@@ -4,6 +4,7 @@ import "./Login.css";
 function Login({ onCrearCuenta }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
